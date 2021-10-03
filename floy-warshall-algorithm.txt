@@ -1,0 +1,83 @@
+Algoritmo "airport-express-floy-warshall"
+// Disciplina  : Analise e Sintese de Algoritmos
+// Professora  : Artemisa Moreno
+// Descrição   : Programa para encontrar a melhor rota para o destino
+// Autor(a)    : Simao Moreno
+// Data atual  : 06/07/2020
+
+constantes 
+	MIN_N = 2,
+	MAX_N = 500,
+	MIN_SM = 1,
+	MAX_CONEXOES = 1000,
+	MAX_Z = 100,
+	INF = 99999,
+	SEM_PARENTE = -1;
+
+floyWarshall(Grafo):
+	para todas as arestas (u, v) de Grafo fazer:
+		dist[u][v] <- peso(u, v)
+		
+	para k de 1 ate |V| fazer:
+		para i de 1 ate |V| fazer:
+			para j de 1 ate |V| fazer:
+				se dist[i][k] + dist[k][j] < dist[i][j] entao:
+					dist[i][j] <- dist[i][k] + dist[k][j]
+					
+	imprimirMatriz(dist)
+	
+
+imprimirMatriz(dist):
+	para i de 1 ate |V| fazer:
+			para j de 1 ate |V| fazer:
+				se dist[i][j] = INF entao:
+					escreva ("INF")
+				senao :
+					escreva (dist[i][j] + "  ")
+
+main():
+	repita :
+		leia (n, s, ee)
+	enquanto ((n < MIN_N ou n > MAX_N) ou s < MIN_SM || ee > n)
+
+	para i de 0 ate n passo 1 faca :
+		para j de 0 ate n passo 1 faca :
+			grafo[i][j] <- INF
+			
+			se i = j entao:
+				grafo[i][j] <- 0
+	
+	repita :
+		leia(m)
+	enquanto (m < MIN_SM ou m > MAX_CONEXOES)
+
+	para i de 0 ate m passo 1 faca :
+		repita
+			leia(x, y, z)
+		enquanto (x <= n e y <= n ou (z >= MIN_SM e z <= MAX_Z))
+		
+		grafo[x-1][y-1] <- z
+
+	repita :
+		leia(k)
+	enquanto (k < MIN_SM ou k > MAX_Z)
+
+	para i de 0 ate m passo 1 faca :
+		repita
+			leia(x, y, z)
+		ate (nao(x <= n e y <= n ou (z >= MIN_SM e z <= MAX_Z)))
+
+		se (x <= n e y <= n e (z >= MIN_SM e z <= MAX_Z)) entao:
+		   grafo[x-1][y-1] <- z
+		   cx <- x
+
+
+	floyWarshall(grafo)
+
+	se cx != 0 entao:
+	  escreva(cx)
+	senao
+	   escreva("TICKET NOT USED!")
+
+
+// fim do algoritmo

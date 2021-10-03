@@ -1,0 +1,105 @@
+Algoritmo "airport-express-dijkstra"
+// Disciplina  : Analise e Sintese de Algoritmos
+// Professora  : Artemisa Moreno
+// Descrição   : Programa para encontrar a melhor rota para o destino
+// Autor(a)    : Simao Moreno
+// Data atual  : 06/07/2020
+
+constantes 
+	MIN_N = 2,
+	MAX_N = 500,
+	MIN_SM = 1,
+	MAX_CONEXOES = 1000,
+	MAX_Z = 100,
+	INF = 99999,
+	SEM_PARENTE = -1;
+
+minDistancia (dist, visitado, n):
+	min <- INF
+	min_indice <- -1
+
+	para todos os nos v de dist faca
+		se v = 0 e v.dist <= min então
+			min <- v.dist
+			min_indice <- v
+
+	retorne min_indice
+
+
+
+imprimirCaminho (v_atual, parentes):
+	se v_atual == SEM_PARENTE entao
+		retorne
+
+	imprimirCaminho(v_atual.parentes, parentes)
+	escreva (v_atual + 1 + "  ")
+
+
+dijkstra (Grafo, s, n, e): 
+	para todos os nós de Grafo fazer
+		v.dist <- INF
+		v.visitado <- falso
+
+	s.dist <- 0
+	s.parentes <- SEM_PARENTE
+
+	para i de 0 ate n passo 1 faca
+		u <- minDistancia(dist, visitado, n)
+
+		u.visitado = verdadeiro
+
+		para v de 0 ate n passo 1 faca
+			se v.visitado = falso e Grafo(u, v) != 0 e u.dist + Grafo(u, v) < v.dist entao
+				v.dist <- u.dist + Grafo(u, v)
+				v.parentes = u
+
+	tempo <- e.dist
+	imprimirCaminho(e, parentes)
+
+	retorne tempo
+
+
+main():
+	repita :
+		leia (n, s, ee)
+	enquanto ((n < MIN_N ou n > MAX_N) ou s < MIN_SM || ee > n)
+
+	para i de 0 ate n passo 1 faca :
+		para j de 0 ate n passo 1 faca :
+			grafo[i][j] <- 0
+	
+	repita :
+		leia(m)
+	enquanto (m < MIN_SM ou m > MAX_CONEXOES)
+
+	para i de 0 ate m passo 1 faca :
+		repita
+			leia(x, y, z)
+		enquanto (x <= n e y <= n ou (z >= MIN_SM e z <= MAX_Z))
+		
+		grafo[x-1][y-1] <- z
+
+	repita :
+		leia(k)
+	enquanto (k < MIN_SM ou k > MAX_Z)
+
+	para i de 0 ate m passo 1 faca :
+		repita
+			leia(x, y, z)
+		ate (nao(x <= n e y <= n ou (z >= MIN_SM e z <= MAX_Z)))
+
+		se (x <= n e y <= n e (z >= MIN_SM e z <= MAX_Z)) entao:
+		   grafo[x-1][y-1] <- z
+		   cx <- x
+
+
+	tempo <- dijkstra(grafo, s-1, n, e-1)
+
+	se cx != 0 entao:
+	  escreva(cx)
+	senao
+	   escreva("TICKET NOT USED!")
+
+	escreva(tempo)
+
+// fim do algoritmo
