@@ -50,7 +50,7 @@ consecutivos de saída devem ser separados por uma linha em branco.
 
 
 # Exemplo 
-Entrada </br>
+# Entrada </br>
 Número de estações, ponto de partida e localização do aeroporto: </br>
 4 1 4  </br>
 Número de conexões entre as estações da Economy-Xpress: </br>
@@ -63,8 +63,9 @@ Informações das rotas do Economy-Xpress: </br>
 Número de conexões entre as estações da CommercialXpress: </br>
 1  </br>
 Informações das rotas do CommercialXpress: </br>
-2 4 3  </br>
-Saída </br>
+2 4 3  </br> </br>
+
+# Saída </br>
 1 2 4  </br>
 2  </br>
 5 </br>
